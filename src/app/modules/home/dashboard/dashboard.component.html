@@ -1,0 +1,64 @@
+<div class="container-fluid">
+    <br>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                <h2>DASHBOARD</h2>
+            </mat-card-title>
+            <span class="example-spacer"></span>
+        </mat-card-header>
+        <hr>
+        <mat-card-content>
+            <div class="row">
+                <div class="col-6">
+                    <div class="my-google-map">
+                        <google-map [options]="mapOptions">
+                           <map-marker [position]="marker.position"></map-marker>
+                        </google-map>
+                     </div>
+                </div>
+                <div class="col-6 container-fluid">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-8">
+                                <img [src]="imgSrc" width="100%">
+                                <br>
+                                <h4>{{message}}</h4>
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="col-12">
+                        Data as of: {{ runtimeData[0].CHECKTIME }}, {{ runtimeData[0].CHECKDATE }}
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <th>Cabin Temperature</th>
+                                    <td>{{ runtimeData[0].OUTTEMP }} ˚C</td>
+                                </tr>
+                                <tr>
+                                    <th>Cabin Humidity</th>
+                                    <td>{{ runtimeData[0].HUMIDITY }} %</td>
+                                </tr>
+                                <tr>
+                                    <th>Engine Coolant Temperature</th>
+                                    <td>{{ runtimeData[0].COOLANT_TEMP }} ˚C</td>
+                                </tr>
+                                <tr>
+                                    <th>Smoke detected?</th>
+                                    <td>{{ runtimeData[0].SMOKE }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Alcohol Detected?</th>
+                                    <td>{{ runtimeData[0].ALCOHOL }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

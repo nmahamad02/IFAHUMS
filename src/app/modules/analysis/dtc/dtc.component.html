@@ -1,0 +1,46 @@
+<div class="container-fluid">
+    <br>
+    <mat-card style="height: 100vh;">
+        <mat-card-header>
+            <mat-card-title>
+                <h2>DIAGNOSTIC TROUBLE CODES</h2>
+            </mat-card-title>
+            <span class="example-spacer"></span>
+        </mat-card-header>
+        <hr>
+        <mat-card-content>
+            <div style="display: block;">
+                <div class="row">
+                    <div class="col-9">
+                        <h3><u>List of Diagnostic Trouble Codes listed from the ECU of the Vehicle:</u></h3>
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <th>Sl. No</th>
+                                    <th>DTC Code</th>
+                                    <th>Subsystem</th>
+                                    <th>Code Type</th>
+                                    <th>Vehicle System</th>
+                                    <th>Fault</th>
+                                </tr>
+                                <tr *ngFor="let dTC of dtcArr; let i = index;">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>{{ dtcArr[i].CODE }}</td>
+                                    <td>{{ dtcArr[i].SUBSYSTEM }}</td>
+                                    <td>{{ dtcArr[i].TYPE }}</td>
+                                    <td>{{ dtcArr[i].SYSTEM }}</td>
+                                    <td>{{ dtcArr[i].FAULT }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-3">
+                        <img [src]="imgSrc" width="100%">
+                    </div>
+                </div>
+                <h4>{{message}}</h4>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <br>
+</div>

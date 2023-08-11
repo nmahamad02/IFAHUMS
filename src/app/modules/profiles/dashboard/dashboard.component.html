@@ -1,0 +1,190 @@
+<div class="container-fluid">
+    <br>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                <h2>PROFILE MASTER</h2>
+            </mat-card-title>
+            <span class="example-spacer"></span>
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            <button class="btn btn-secondary" style="float: right;">
+                <i class="material-icons">print</i>&nbsp;&nbsp;
+            </button>
+            <button class="btn btn-success" style="float: right;" (click)="submitForm()">
+                <i class="material-icons">upload_file</i>&nbsp;&nbsp;
+            </button>
+        </mat-card-header>
+        <hr>
+        <mat-card-content>
+            <div style="display: block;" class="col-12">
+                <form class="form-container" [formGroup]="profileForm">
+                    <div class="row">
+                        <div class="col-3">
+                            <mat-form-field class="full-width"> 
+                                <mat-label> Profile Code </mat-label>
+                                <input #profileCode type="text" formControlName="profileNo" matInput required>
+                                <mat-error> Profile code is <strong>required</strong> </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-3">
+                            <mat-form-field class="full-width">
+                                <mat-label> First Name </mat-label>
+                                <input #fName type="text" formControlName="firstname" matInput required>
+                                <mat-error>
+                                    First Name is <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-3">
+                            <mat-form-field class="full-width"> 
+                                <mat-label> Sur Name </mat-label>
+                                <input #sName type="text" formControlName="surname" matInput required>
+                                <mat-error>
+                                    Sur Name is <strong>required</strong>
+                                </mat-error>        
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-3">
+                            <mat-form-field class="full-width">
+                                <mat-label> Profile Type </mat-label>
+                                <mat-select #profileType formControlName="profileType" required 
+                                (focusout)="checkDependents(profileType.value)">
+                                    <mat-option value="V"> Vehicle </mat-option>
+                                    <mat-option value="P"> Production line </mat-option>
+                                    <mat-option value="F"> Facility </mat-option>
+                                  </mat-select>
+                                <mat-error>
+                                    Profile Type is <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <mat-form-field class="full-width">
+                                <mat-label> Email ID </mat-label>
+                                <input formControlName="email" matInput>
+                            </mat-form-field>
+                        </div>                                
+                        <div class="col-6">
+                            <mat-form-field class="full-width">
+                                <mat-label>Mobile Number </mat-label>
+                                <input formControlName="mobile" matInput>
+                            </mat-form-field>
+                        </div>                                                             
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <mat-form-field class="full-width">
+                                <mat-label> Address 1 </mat-label>
+                                <input formControlName="add1" matInput>
+                            </mat-form-field>
+                        </div>                                
+                        <div class="col-4">
+                            <mat-form-field class="full-width">
+                                <mat-label> Address 2 </mat-label>
+                                <input formControlName="add2" matInput>
+                            </mat-form-field>
+                        </div>                                
+                        <div class="col-4">
+                            <mat-form-field class="full-width">
+                                <mat-label> Address 3 </mat-label>
+                                <input formControlName="add3" matInput>
+                            </mat-form-field>
+                        </div>                                
+                    </div>
+                    <hr>
+                    <div class="col-12" style="height: 50vh; overflow-y: auto;">
+                        <div *ngIf="openVehicleProfile">
+                            <table class="table table-borderless table-hover table-responsive-xxl" 
+                            formArrayName="vehicleProfiles">
+                                <thead>
+                                    <tr class="table-reflow" style="background-color: rgb(74, 74, 74); color: white;">
+                                        <th style="width: 10%;">
+                                            Operator No
+                                        </th>
+                                        <th style="width: 20%;">
+                                            Name
+                                        </th>
+                                        <th style="width: 10%;">
+                                            Phone Number
+                                        </th>
+                                        <th style="width: 5%;">
+                                            Model
+                                        </th>
+                                        <th style="width: 5%;">
+                                            Make
+                                        </th>
+                                        <th style="width: 5%;">
+                                            Engine Type
+                                        </th>
+                                        <th style="width: 5%;">
+                                            Engine Bore
+                                        </th>
+                                        <th style="width: 5%;">
+                                            Engine Stroke
+                                        </th>
+                                        <th style="width: 5%;">
+                                            Engine Displacement
+                                        </th>
+                                        <th style="width: 30%;">
+                                            Image
+                                        </th>
+                                        <th> </th>
+                                    </tr>
+                                </thead>
+                                <tbody (keydown.alt.n)="addDependentProfile('V')">
+                                    <tr #depMem *ngFor="let dM of vehicleProfiles.controls; let i = index;" 
+                                    [formGroupName]="i" (keydown.alt.x)="deleteDependentProfile('V',i)">
+                                        <td>
+                                            <input class="form-control form-control-sm" type="text" formControlName="dOperatorNo">
+                                        </td>
+                                        <td>
+                                            <input class="form-control form-control-sm" type="text" formControlName="dName">
+                                        </td>
+                                        <td>
+                                            <input class="form-control form-control-sm" type="text" formControlName="dNumber">
+                                        </td>
+                                        <td>
+                                            <input class="form-control form-control-sm" type="text" formControlName="dModel">
+                                        </td>
+                                        <td>
+                                            <input class="form-control form-control-sm" type="text" formControlName="dMake">
+                                        </td>
+                                        <td>
+                                            <input class="form-control form-control-sm" type="text" formControlName="dEngType">
+                                        </td>
+                                        <td>
+                                            <input class="form-control form-control-sm" type="text" formControlName="dEngBore">
+                                        </td>
+                                        <td>
+                                            <input class="form-control form-control-sm" type="text" formControlName="dEngStroke">
+                                        </td>
+                                        <td>
+                                            <input class="form-control form-control-sm" type="text" formControlName="dEngDisplacement">
+                                        </td>
+                                        <td>
+                                            <img [src]="imageSrc[i]" *ngIf="imageSrc[i]" style="width:100%">
+                                            <input formControlName="dImage" id="image" type="file" class="form-control" 
+                                            (change)="onFileChange($event,i)">
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-danger" type="button" (click)="deleteDependentProfile('V',i)"> &#10005; </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button class="btn btn-success" type="button" (click)="addDependentProfile('V')"> &#43; </button>
+                        </div>
+                    </div>
+                </form> 
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <br>
+</div>
